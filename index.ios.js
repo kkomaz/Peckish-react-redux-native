@@ -9,18 +9,34 @@ import {
   Text,
   View
 } from 'react-native';
+import reducers from './app/reducers';
+
+// middleware that logs actions
+const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
+
+function configureStore(initialState) {
+  const enhancer = compose(
+    applyMiddleware(
+      thunkMiddleware, // lets us dispatch() functions
+      loggerMiddleware,
+    ),
+  );
+  return createStore(reducer, initialState, enhancer);
+}
+
+const store = configureStore({});
 
 class Peckish extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
+      <View>
+        <Text>
           Welcome to React Native!
         </Text>
-        <Text style={styles.instructions}>
+        <Text>
           To get started, edit index.ios.js
         </Text>
-        <Text style={styles.instructions}>
+        <Text>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
@@ -29,23 +45,10 @@ class Peckish extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const App = () => (
+  <Provider store={store}>
+    <Peckish />
+  </Provider>
+)
 
-AppRegistry.registerComponent('Peckish', () => Peckish);
+AppRegistry.registerComponent('App', () => App);
