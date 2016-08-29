@@ -1,3 +1,5 @@
+import { API_URL } from '../../env.config';
+
 class Api {
   static headers() {
     return {
@@ -5,7 +7,7 @@ class Api {
       'Content-Type': 'application/json',
       'dataType': 'json',
       'X-Requested-With': 'XMLHttpRequest',
-      'X-Mashape-Key: NswOvgAyvumshyd2wrTNXCreTxeEp16FHSIjsny6ux8UbGVesj',
+      `X-Mashape-Key: ${API_URL}`,
     }
   }
 
