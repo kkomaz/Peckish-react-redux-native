@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleWare, combineReducers, compose } from 'redux';
-import thunkMiddlware from 'redux-thunk';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import {
   AppRegistry,
@@ -9,7 +9,7 @@ import {
   Text,
   View
 } from 'react-native';
-import reducers from './app/reducers';
+import reducers from './app/reducers.js';
 
 // middleware that logs actions
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
@@ -21,7 +21,7 @@ function configureStore(initialState) {
       loggerMiddleware,
     ),
   );
-  return createStore(reducer, initialState, enhancer);
+  return createStore(reducers, initialState, enhancer);
 }
 
 const store = configureStore({});
@@ -32,13 +32,6 @@ class Peckish extends Component {
       <View>
         <Text>
           Welcome to React Native!
-        </Text>
-        <Text>
-          To get started, edit index.ios.js
-        </Text>
-        <Text>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
         </Text>
       </View>
     );
@@ -51,4 +44,4 @@ const App = () => (
   </Provider>
 )
 
-AppRegistry.registerComponent('App', () => App);
+AppRegistry.registerComponent('Peckish', () => App);
