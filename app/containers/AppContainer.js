@@ -3,6 +3,7 @@ import ReactNative from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ActionCreators } from '../actions';
+
 const {
   View,
   Text,
@@ -22,7 +23,7 @@ class AppContainer extends Component {
   render() {
     return (
       <View>
-        <Text style={{marginTop: 20}}>
+        <Text style={{ marginTop: 20 }}>
           I am App Container!
         </Text>
         <TouchableHighlight onPress={this.addRecipe}>
@@ -38,10 +39,17 @@ class AppContainer extends Component {
   }
 }
 
+const { func, number } = React.PropTypes;
+
+AppContainer.propTypes = {
+  addRecipe: func,
+  recipeCount: number,
+};
+
 function mapStateToProps(state) {
   return {
     recipeCount: state.recipeCount,
-  }
+  };
 }
 
 function mapDispatchtoProps(dispatch) {

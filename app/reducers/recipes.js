@@ -6,7 +6,8 @@ export const searchedRecipes = createReducer({}, {
 });
 
 export const recipeCount = createReducer(0, {
-  [types.ADD_RECIPE](state, action){
+  [types.ADD_RECIPE](state, action) {
+    console.log(action);
     return state + 1;
-  }
+  },
 });
