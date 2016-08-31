@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import reducers from './app/reducers.js';
 import AppContainer from './app/containers/AppContainer';
+import devTools from 'remote-redux-devtools';
 
 // middleware that logs actions
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
@@ -18,8 +19,14 @@ function configureStore(initialState) {
       thunkMiddleware, // lets us dispatch() functions
       loggerMiddleware,
     ),
+    devTools()
   );
-  return createStore(reducers, initialState, enhancer);
+  // Note: passing enhancer as last argument requires redux@>=3.1.0
+  const store = createStore(reducers, initialState, enhancer);
+  // If you have other enhancers & middlewares
+  // update the store after creating / changing to allow devTools to use them
+  devTools.updateStore(store);
+  return store;
 }
 
 const store = configureStore({});
